@@ -1,24 +1,3 @@
-// class Solution {
-//     public void nextPermutation(int[] nums) 
-//     {   
-//         int idx = 0;
-//      for(int i=nums.length-1;i>=0;i--)
-//      {
-//          if(nums[i]>nums[i-1])
-//          {
-//              idx = i;
-//              for(int j = nums.length -1;j>idx;j--)
-//              {
-//                  if(nums[j]>nums[idx-1])
-//                  {
-//                      swap(nums[j], nums[idx-1]);
-//                  }
-//              }
-//          }
-//      }
-    
-// }
-
 class Solution {
     public void nextPermutation(int[] nums) {
         int i = nums.length - 2;
@@ -27,7 +6,8 @@ class Solution {
         }
         if(i>=0) {
             int j = nums.length-1;
-            while(j >= 0 && nums[j] <= nums[i]) j--;
+            while(j >= 0 && nums[j] <= nums[i]) 
+                j--;
             swap(nums, i, j);
         }
         
