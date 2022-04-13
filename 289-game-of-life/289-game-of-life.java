@@ -1,33 +1,86 @@
+//  Space O(N*M)
+// class Solution {
+    
+//     int[][] dir = {{-1,-1},{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1}};
+//     public void gameOfLife(int[][] board) {
+//         int m = board.length;
+//         int n = board[0].length;
+    
+//         int[][] nboard = new int[m][n];
+        
+//         for(int i=0;i<m;i++)
+//         {
+//             for(int j=0;j<n;j++)
+//             {
+//                 int count = 0;
+//                 for(int[] d:dir)
+//                 {
+//                     int r = i+d[0];
+//                     int c = j+d[1];
+                    
+//                     if(r>=0 && r<m && c>=0 && c<n && board[r][c]==1)
+//                         count++;
+//                 }
+//                 if(board[i][j]==1)
+//                 {
+//                     if(count==2 || count==3)
+//                         nboard[i][j] = 1;
+//                 }
+//                 else
+//                 {
+//                     if(count==3)
+//                         nboard[i][j] = 1;
+//                 }
+//             }
+//         }
+//         for(int i=0;i<m;i++)
+//         {
+//             for(int j=0;j<n;j++)
+//             {
+//                 board[i][j] = nboard[i][j];
+//             }
+//         }      
+//     }
+// }
+
 class Solution {
-    private static final int[][] DIRS = { { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 } };
-
+    
+    int[][] dir = {{-1,-1},{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1}};
     public void gameOfLife(int[][] board) {
-        if (board == null || board.length == 0 || board[0].length == 0) {
-            return;
-        }
-
-        int rows = board.length;
-        int cols = board[0].length;
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                int liveCount = 0;
-                for (int[] d : DIRS) {
-                    int x = i + d[0];
-                    int y = j + d[1];
-                    if (x >= 0 && x < rows && y >= 0 && y < cols) {
-                        liveCount += board[x][y] & 1;
-                    }
+        int m = board.length;
+        int n = board[0].length;
+          
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                int count = 0;
+                for(int[] d:dir)
+                {
+                    int r = i+d[0];
+                    int c = j+d[1];
+                    
+                    if(r>=0 && r<m && c>=0 && c<n && (board[r][c]==1 || board[r][c]==2))
+                        count++;
                 }
-                if (liveCount == 3 || (board[i][j] == 1 && liveCount == 2)) {
-                    board[i][j] |= 2; // 1 << 1
+                if(board[i][j]==1)
+                {
+                   if(count<2 || count>3)
+                       board[i][j] = 2;  // 2->alive to dead
+                }
+                else
+                {
+                    if(count==3)
+                       board[i][j] = 3; // 3->dead to alive
                 }
             }
         }
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                board[i][j] >>>= 1;
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                board[i][j]%=2;
             }
-        }
+        }      
     }
 }
