@@ -13,26 +13,52 @@
  *     }
  * }
  */
-class Solution {
-    public int kthSmallest(TreeNode root, int k) {
-        List<Integer> ans = new ArrayList<>();
+
+// class Solution {
+//     public int kthSmallest(TreeNode root, int k) {
+//         List<Integer> ans = new ArrayList<>();
+//         if(root == null)
+//             return 0;
+        
+//         ans = dfs(root);
+//         return ans.get(k-1);
+        
+//     }
+//     public List<Integer> dfs(TreeNode root)
+//     {
+//         List<Integer> ans = new ArrayList<>();
+//         if(root == null)
+//             return new ArrayList<>();
+        
+//         ans.addAll(dfs(root.left));
+//         ans.add(root.val);
+//          ans.addAll(dfs(root.right));
+        
+//         return ans;
+//     }
+// }
+
+class Solution{
+    int result = -1;
+    int count = 0;
+    public int kthSmallest(TreeNode root, int k)
+    {
         if(root == null)
             return 0;
         
-        ans = dfs(root);
-        return ans.get(k-1);
-        
+        dfs(root, k);
+        return result;
     }
-    public List<Integer> dfs(TreeNode root)
+    public void dfs(TreeNode root, int k)
     {
-        List<Integer> ans = new ArrayList<>();
-        if(root == null)
-            return new ArrayList<>();
+        if(root==null)
+            return;
         
-        ans.addAll(dfs(root.left));
-        ans.add(root.val);
-         ans.addAll(dfs(root.right));
-        
-        return ans;
+        dfs(root.left, k);
+        count++;
+        if(count == k)
+            result = root.val;
+        dfs(root.right, k);
+  
     }
 }
