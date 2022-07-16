@@ -7,15 +7,10 @@ class Solution {
             num[i]=nums[i]+""; 
         }
         Arrays.sort(num, (a, b) -> {
-        long n1 = Long.parseLong(a+b);
-        long n2 = Long.parseLong(b+a);
+        String n1 = a+b;
+        String n2 = b+a;
         
-        if(n1>n2)
-          return 1;
-        else if(n1<n2)
-          return -1;
-        else
-          return 0;
+        return n1.compareTo(n2);
       });
       
       String ans="";
